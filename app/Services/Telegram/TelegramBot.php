@@ -9,12 +9,12 @@ class TelegramBot extends Bot {
 
     public function __construct()
     {
-        $this->host = 'https://api.telegram.org/bot'.env("TELEGRAM_TOKEN", config("telegram.token")) . '/';
+        $this->host = 'https://api.telegram.org/bot'.config('telegram.token') . '/';
     }
 
     public static function getAccessToken()
     {
-        return env("TELEGRAM_TOKEN");
+        return config('telegram.token');
     }
 
     public function setWebHook(string $ownHost)

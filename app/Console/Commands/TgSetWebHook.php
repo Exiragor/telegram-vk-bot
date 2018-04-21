@@ -41,7 +41,7 @@ class TgSetWebHook extends Command
      */
     public function handle()
     {
-        $res = $this->tg->setWebHook(env("TELEGRAM_HOST"));
+        $res = $this->tg->setWebHook(config('app.url'));
         Log::info($res);
         $this->info(json_decode($res, true)['description']);
         return true;

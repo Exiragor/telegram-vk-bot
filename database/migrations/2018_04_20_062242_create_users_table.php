@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
 
             $table->integer('tg_chat_id')->unique()->unsigned();
-            $table->string('vk_token')->unique()->unsigned();
+            $table->string('vk_token')->nullable();
         });
     }
 

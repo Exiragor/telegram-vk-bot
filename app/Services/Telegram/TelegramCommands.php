@@ -13,6 +13,7 @@ class TelegramCommands {
     {
         foreach($this->listCommands as $command) {
             $c = new $command();
+
             if ($c->compare($commandName)) {
                 return $c;
             }
