@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Services\Telegram\TelegramBot;
 use App\Services\Vk\VkBot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,9 +25,11 @@ class VkController extends Controller
             foreach ($users as $user) {
                 $user->vk_token = $token;
                 $user->save();
+
+                $telegram = new TelegramBot();
+                $telegram->sendMessage($user->tg_chat_id, 'Your account was activated!');
             }
         }
-
         return response("Your account was activated");
     }
 
