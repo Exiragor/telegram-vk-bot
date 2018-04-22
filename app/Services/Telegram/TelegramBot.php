@@ -17,16 +17,17 @@ class TelegramBot extends Bot {
         return config('telegram.token');
     }
 
+    // set webhook for get updates from telegram
     public function setWebHook(string $ownHost)
     {
         $url = $ownHost . '/api/telegram/hook/' . self::getAccessToken() . '/';
-        Log::info($url);
         $method = 'setWebhook?url=' . $url;
 
         $result = $this->send($method, [], "GET");
         return $result;
     }
 
+    //try to get updates from telegram
     public function getUpdates()
     {
         $method = 'getUpdates';
@@ -34,6 +35,7 @@ class TelegramBot extends Bot {
         return $result;
     }
 
+    //send message to user
     public function sendMessage(int $chat_id, string $message)
     {
         $method = 'sendMessage';

@@ -20,8 +20,6 @@ class VkController extends Controller
             $token = $vk->getAccessToken($request['code']);
 
             $users = User::where('id', Cookie::get('user_id'))->get();
-            Log::info(Cookie::get('user_id'));
-            Log::info($users);
             foreach ($users as $user) {
                 $user->vk_token = $token;
                 $user->save();

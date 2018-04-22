@@ -11,6 +11,7 @@ class ReportCommand extends TelegramCommand {
 
     protected $signature = "report";
 
+    // get report
     protected function handle()
     {
         if (!isset($this->params['chat_id'])) return false;

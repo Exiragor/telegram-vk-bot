@@ -12,9 +12,6 @@ class TelegramController extends Controller
 {
     public function hookInfo(Request $request)
     {
-        Log::info($request);
-        Log::info($request['message']['chat']['id']);
-
         if (
             isset($request['message']['entities']['0']['type'])
             &&

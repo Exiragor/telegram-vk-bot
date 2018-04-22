@@ -12,9 +12,9 @@ class TelegramCommands {
         ReportCommand::class,
     ];
 
+    // search needle command
     public function searchCommand(string $commandName)
     {
-        Log::info($commandName);
         foreach($this->listCommands as $command) {
             $c = new $command();
 

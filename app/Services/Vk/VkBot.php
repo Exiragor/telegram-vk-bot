@@ -18,6 +18,7 @@ class VkBot extends Bot {
         . "&scope=ads,offline&response_type=code&v=5.74";
     }
 
+    // get token for vk
     public function getAccessToken(string $code)
     {
         $url = "https://oauth.vk.com/access_token"
@@ -30,6 +31,7 @@ class VkBot extends Bot {
         return $arrRes['access_token'];
     }
 
+    // get active accounts of user for ads
     public function getAdsAccounts()
     {
         $method = 'ads.getAccounts';
@@ -40,6 +42,7 @@ class VkBot extends Bot {
         return $res['response'];
     }
 
+    // get active ads campaigns
     public function getAdsCampaigns(int $account_id)
     {
         $method = 'ads.getCampaigns';
@@ -53,6 +56,7 @@ class VkBot extends Bot {
         return $res['response'];
     }
 
+    // get a statistic about campaigns
     public function getAdsStatistic(int $account_id, string $campaigns)
     {
         $method = 'ads.getStatistics';
