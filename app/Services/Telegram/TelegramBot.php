@@ -9,7 +9,7 @@ class TelegramBot extends Bot {
 
     public function __construct()
     {
-        $this->host = 'https://api.telegram.org/bot'.config('telegram.token') . '/';
+        $this->host = 'https://api.telegram.org/bot'.self::getAccessToken() . '/';
     }
 
     public static function getAccessToken()
@@ -20,9 +20,17 @@ class TelegramBot extends Bot {
     public function setWebHook(string $ownHost)
     {
         $url = $ownHost . '/api/telegram/hook/' . self::getAccessToken() . '/';
+        Log::info($url);
         $method = 'setWebhook?url=' . $url;
 
         $result = $this->send($method, [], "GET");
+        return $result;
+    }
+
+    public function getUpdates()
+    {
+        $method = 'getUpdates';
+        $result = $this->send($method, []);
         return $result;
     }
 

@@ -29,7 +29,7 @@ class ActivateCommand extends TelegramCommand {
 
             $id = $user->id;
 
-            $link = config('socials.host') . '/api/vk/auth?id=' . $id;
+            $link = config('app.url') . '/api/vk/auth?id=' . $id;
 
             $this->telegram->sendMessage($this->params['chat_id'], $link);
         }

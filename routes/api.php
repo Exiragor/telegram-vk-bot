@@ -18,10 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('telegram')->group(function () {
-    Route::post('hook/' . env("TELEGRAM_TOKEN"), 'Api\TelegramController@hookInfo');
+    Route::post('hook/' . config('telegram.token'), 'Api\TelegramController@hookInfo');
 });
 
 Route::prefix('vk')->group(function () {
-//    Route::get('authback', '');
-    Route::get('auth', 'Api\VkController@');
+    Route::get('authback', 'Api\VkController@authBack');
+    Route::get('auth', 'Api\VkController@auth');
 });

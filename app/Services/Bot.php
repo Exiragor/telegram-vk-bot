@@ -14,6 +14,7 @@ class Bot {
     protected function send(string $method='', array $params=[], string $type="POST")
     {
         $uri = $this->host . $method;
+        Log::info($uri);
         $params = ['form_params' => $params];
 
         $client = new Client();

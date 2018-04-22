@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Services\Vk\VkBot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class VkController extends Controller
 {
@@ -15,9 +18,13 @@ class VkController extends Controller
             $vk = new VkBot();
             $token = $vk->getAccessToken($request['code']);
 
-            $user = User::where('tg_chat_id', session('id'))->get();
-            $user->vk_token = $token;
-            $user->save();
+            $users = User::where('id', Cookie::get('user_id'))->get();
+            Log::info(Cookie::get('user_id'));
+            Log::info($users);
+            foreach ($users as $user) {
+                $user->vk_token = $token;
+                $user->save();
+            }
         }
 
         return response("Your account was activated");
@@ -25,8 +32,7 @@ class VkController extends Controller
 
     public function auth(Request $request)
     {
-        session('id', $request['id']);
-
-        return redirect(VkBot::getLinkForAccess());
+        $cookie = cookie('user_id', $request['id'], 15);
+        return redirect(VkBot::getLinkForAccess())->cookie($cookie);
     }
 }
