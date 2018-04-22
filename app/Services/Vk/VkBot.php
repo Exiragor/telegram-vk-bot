@@ -13,7 +13,8 @@ class VkBot extends Bot {
 
     public static function getLinkForAccess()
     {
-        return "https://oauth.vk.com/authorize?client_id=6041065&display=page"
+        $id = config('vk.app_id');
+        return "https://oauth.vk.com/authorize?client_id=$id&display=page"
         . "&redirect_uri=".config('app.url')."/api/vk/authback"
         . "&scope=ads,offline&response_type=code&v=5.74";
     }
@@ -21,8 +22,10 @@ class VkBot extends Bot {
     // get token for vk
     public function getAccessToken(string $code)
     {
+        $id = config('vk.app_id');
+        $key = config('vk.app_key');
         $url = "https://oauth.vk.com/access_token"
-        . "?client_id=6041065&client_secret=NwURCSWq78hjsrPbFxll"
+        . "?client_id=$id&client_secret=$key"
         . "&redirect_uri=".config('app.url')."/api/vk/authback&code=$code";
 
         $res = $this->sendToUri($url, [], "GET");
