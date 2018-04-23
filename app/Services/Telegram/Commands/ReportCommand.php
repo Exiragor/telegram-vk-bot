@@ -16,11 +16,11 @@ class ReportCommand extends TelegramCommand {
     {
         if (!isset($this->params['chat_id'])) return false;
         $user = User::where('tg_chat_id', $this->params['chat_id'])->first();
+        if (!$user) return false;
 
         $vk = new VkBot();
         $vk->useToken($user->vk_token);
         $adsAccs = $vk->getAdsAccounts();
-        Log::info($adsAccs);
 
         $response = '';
         $all_cost = 0;
@@ -32,13 +32,11 @@ class ReportCommand extends TelegramCommand {
             $campaigns = [];
 
             $res = $vk->getAdsCampaigns($id);
-            Log::info($res);
             foreach ($res as $item) {
                 $campaigns[] = $item['id'];
             }
 
             $campaigns_str = implode(',', $campaigns);
-
             $res = $vk->getAdsStatistic($id, $campaigns_str);
 
             foreach ($res as $campaign) {
